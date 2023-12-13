@@ -11,7 +11,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "SukhbirNetsol\\FirebaseAuthSdk\\": "src/"
+            "FirebaseAuth\\": "src/FirebaseAuth/"
         }
     },
     "authors": [
