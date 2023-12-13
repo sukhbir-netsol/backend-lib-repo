@@ -19,5 +19,6 @@
             "name": "sukhbir singh",
             "email":"sukhbir.singh@netsolutions.com"
         }
-    ]
+    ],
+    "minimum-stability": "dev"
 }
