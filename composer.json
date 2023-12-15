@@ -20,5 +20,6 @@
             "email":"sukhbir.singh@netsolutions.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
