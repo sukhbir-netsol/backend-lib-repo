@@ -17,7 +17,7 @@ class FirebaseAuth
     public static function initialize($authToken)
     {
         self::$authToken = $authToken;
-        self::$baseUrl = env('NODE_DOMAIN','http://localhost');
+        self::$baseUrl = getenv('SUPPLIER_NODE_SITE_URL','http://localhost');
     }
 
     private static function getClient()
