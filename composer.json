@@ -11,7 +11,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FirebaseAuth\\": "src/firebaseAuth/"
+            "FirebaseAuth\\": "src/FirebaseAuth/"
         }
     },
     "authors": [
