@@ -57,25 +57,33 @@ class FirebaseAuth
                 'json' => [
                     'email' => $email,
                     'displayName' => $display_name,
-                ]
+                ],
+                
             ]);
-            return json_decode($response->getBody(), true);
+
+            $returnBody = json_decode($response->getBody(), true);
+            $userData = $returnBody['data'] ?? [];
+            $returnOutput=  json_decode(json_encode(["message"=> $returnBody['message'],"userData"=>$userData,"statusCode"=> $response->getStatusCode()]), true);
+            
 
         }catch (RequestException $e) {
-            /**Caught request related exception  */
+            //Caught request related exception
             if ($e->hasResponse()) {
                 $response = $e->getResponse();
-                return json_decode($response->getBody(), true);
+                $returnBody = json_decode($response->getBody(), true);
+                $returnOutput= json_decode(json_encode(["message"=> $returnBody['message'],"statusCode"=> $e->getCode()]), true);
             }else{
-                return json_decode(json_encode(["message"=> $e->getMessage(),"status_code"=> $e->getCode()]), true);
+                $returnOutput= json_decode(json_encode(["message"=> $e->getMessage(),"statusCode"=> $e->getCode()]), true);
             }
         }catch (ConnectException $e) {
-            /**Caught connection specific exception/error  */
-           return json_decode(json_encode(["message"=> "Service not available","status_code"=> 503]), true);
+            //Caught connection specific exception/error
+            $returnOutput= json_decode(json_encode(["message"=> "Service not available","statusCode"=> 503]), true);
         }catch(\Exception $e){
-             /**Caught any type of exception/error  */
-            return json_decode(json_encode(["message"=> $e->getMessage(),"status_code"=> $e->getCode()]), true);
+             //Caught any type of exception/error
+            $returnOutput= json_decode(json_encode(["message"=> $e->getMessage(),"statusCode"=> $e->getCode()]), true);
         }
+        return $returnOutput;
+        
         
     }
 
