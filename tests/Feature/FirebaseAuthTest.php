@@ -1,19 +1,38 @@
 <?php
 
 namespace Tests\Feature;
+
+
 use PHPUnit\Framework\TestCase;
+use FirebaseAuth\CustomValidator;
+
 
 class FirebaseAuthTest extends TestCase
 {
+    const CORRECT_EMAIL= 'abc.xyz@exmple.com';
+    const DISPLAY_NAME = 'abc xyz';
+    const INCORRECT_EMAIL= 'abc.xyz';
+    const EMPTY_DISPLAY_NAME = '';
+
+
     /**
-     * A basic test example.
+     * To test if email address is valid.
+     * And display name is not empty
      */
-    public function test_that_true_is_true(): void
+    public function test_user_can_register():void
     {
-        $this->assertTrue(true);
+        $this->assertTrue(CustomValidator::validateEmail(self::CORRECT_EMAIL));
+        $this->assertTrue(CustomValidator::validateName(self::DISPLAY_NAME));
+       
     }
-    public function test_the_application_returns_a_successful_response(): void
+    /**
+     * To test if email address is not valid.
+     * And display name is empty
+     */
+    public function test_user_can_not_register(): void
     {
-       $this->assertTrue(true);
+        $this->assertFalse(CustomValidator::validateEmail(self::INCORRECT_EMAIL));
+        $this->assertFalse(CustomValidator::validateName(self::EMPTY_DISPLAY_NAME));
     }
+   
 }

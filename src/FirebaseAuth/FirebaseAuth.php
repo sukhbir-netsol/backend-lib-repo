@@ -9,6 +9,7 @@ namespace FirebaseAuth;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
+use FirebaseAuth\CustomValidator;
 
 class FirebaseAuth
 {
@@ -50,14 +51,19 @@ class FirebaseAuth
         $client = self::getClient();
         $signUpApiUrl = self::$baseUrl .'registration';
         try{
+            /**if email is not valid or display name is empty then will return below json response */
+            if(CustomValidator::validateEmail($email) && CustomValidator::validateName($display_name)){
+                return json_decode(json_encode(["message"=> "Email address/display name is not correct. Please try again.","statusCode"=> 400]), true);
+            }
+            /** if email and display name are correct */
             $response = $client->post($signUpApiUrl, [
                 'headers' => [
                     'authorization' => self::$authToken,
                 ],
                 'json' => [
-                    'email' => $email,
-                    'displayName' => $display_name,
-                ],
+                    'email' => $email ?? '',
+                    'displayName' => $display_name ?? '',
+                ]
                 
             ]);
 
