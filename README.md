@@ -14,11 +14,20 @@ composer require "sukhbir-netsol/firebase-auth-sdk": "dev-main"
 
 ```php
 
-
 # Please add this variable in the .env file which includes the path of node API. 
 # It is used to register on Firebase using the Firebase admin SDK function.
 SUPPLIER_NODE_SITE_URL='http://localhost:3000/api/v1/'
 
+# Include below your code
+use FirebaseAuth\FirebaseAuth;
+
+# Initialize Firebase authentication with the authorization token
+FirebaseAuth::initialize($authorizationToken);
+
+# Call the Firebase registration method with the provided user details
+FirebaseAuth::register($displayName, $email);
+
+```
 
 
 ## License
